@@ -6,6 +6,7 @@ import { Box, Container } from '@material-ui/core'
 import { getNews } from 'store/news/actions'
 import { RootReducer } from 'store/store'
 import ShowMore from 'components/ShowMore'
+import Skeleton from '@material-ui/lab/Skeleton'
 
 const MainPage: React.FC = () => {
   const dispatch = useDispatch()
@@ -35,11 +36,22 @@ const MainPage: React.FC = () => {
     <GeneralWrapper>
       <div className='main-page'>
         <Container>
-          {newsStore
-          && <News items={newsStore} />}
-          <Box justifyContent='center' display='flex' marginTop={4}>
-            <ShowMore onClick={FetchElseNews} disabled={limitReached || loading} />
-          </Box>
+          {loading && newsStore.length === 0
+          && (
+          <>
+            <Box marginBottom={1}><Skeleton variant='rect' height={100} animation='wave' /></Box>
+            <Box marginBottom={1}><Skeleton variant='rect' height={100} animation='wave' /></Box>
+            <Box marginBottom={1}><Skeleton variant='rect' height={100} animation='wave' /></Box>
+          </>
+          )}
+          {newsStore.length !== 0 && (
+            <>
+              <News items={newsStore} />
+              <Box justifyContent='center' display='flex' marginTop={4}>
+                <ShowMore onClick={FetchElseNews} disabled={limitReached || loading} />
+              </Box>
+            </>
+          )}
         </Container>
       </div>
     </GeneralWrapper>

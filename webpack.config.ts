@@ -3,6 +3,8 @@ import webpack, {Configuration} from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 
+const TerserPlugin = require('terser-webpack-plugin');
+
 const webpackConfig = (env): Configuration => ({
   entry: './src/index.tsx',
   devtool: 'inline-source-map',
@@ -25,6 +27,16 @@ const webpackConfig = (env): Configuration => ({
     historyApiFallback: true,
   },
   optimization: {
+    minimizer: [
+      new TerserPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: false, // Must be set to true if using source-maps in production
+        terserOptions: {
+          // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+        }
+      }),
+    ],
     splitChunks: {
       chunks: 'all',
     },
@@ -45,12 +57,18 @@ const webpackConfig = (env): Configuration => ({
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
-        test: /\.(png|jpg|gif)$/i,
+        test: /\.(png|svg|jpg|gif)$/,
         loader: 'url-loader',
         options: {
           limit: 10000
         }
-      }
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          'file-loader',
+        ],
+      },
     ]
   },
   plugins: [

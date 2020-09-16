@@ -53,7 +53,11 @@ function* fetchNewsDetail(action) {
     const apiUrl = `http://localhost:5000/api/news/${id}`
     const result = yield fetch(apiUrl)
     const data = yield result.json()
-    yield put(getDetailNewsSuccess(data))
+    if (result.ok) {
+      yield put(getDetailNewsSuccess(data))
+    } else if (!result.ok && data.message) {
+      yield put(getDetailNewsError(data.message))
+    }
   } catch (e) {
     yield put(getDetailNewsError(e))
   }

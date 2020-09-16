@@ -11,6 +11,7 @@ const MainPage: React.FC = () => {
   const dispatch = useDispatch()
   const newsStore = useSelector((state: RootReducer) => state.news.news)
   const limitReached = useSelector((state: RootReducer) => state.news.limitReached)
+  const loading = useSelector((state: RootReducer) => state.news.loading)
   const limit = 6
   const [offset, setOffset] = useState(0)
 
@@ -37,7 +38,7 @@ const MainPage: React.FC = () => {
           {newsStore
           && <News items={newsStore} />}
           <Box justifyContent='center' display='flex' marginTop={4}>
-            <ShowMore onClick={FetchElseNews} disabled={limitReached} />
+            <ShowMore onClick={FetchElseNews} disabled={limitReached || loading} />
           </Box>
         </Container>
       </div>

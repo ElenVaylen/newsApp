@@ -26,6 +26,7 @@ const handlers = {
       firstName: data.firstName,
       lastName: data.lastName,
     },
+    error: null,
   }),
   [GET_USER_ERROR]: (state, data) => ({
     ...state,

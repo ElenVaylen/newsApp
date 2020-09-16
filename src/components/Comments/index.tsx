@@ -9,7 +9,6 @@ interface Props {
 }
 
 const Comments: React.FC<Props> = ({ comments }) => {
-  console.log('comments', comments)
   const firstLevelComments = comments.filter((item) => item.parentId === item.storyId)
 
   const renderComments = (parent, child) => {

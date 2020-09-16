@@ -10,7 +10,6 @@ interface Props {
 }
 
 const News: React.FC<Props> = ({ items }) => {
-  console.log('items', items)
   if (!items || items.length === 0) return null
   return (
     <Styled className='news'>

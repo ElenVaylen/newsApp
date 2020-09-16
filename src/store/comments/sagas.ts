@@ -15,7 +15,6 @@ function* fetchComments(action) {
     const apiUrl = `http://localhost:5000/api/comments/${newsId}`
     const result = yield fetch(apiUrl)
     const data = yield result.json()
-    console.log('com', data)
     yield put(getCommentsSuccess(data))
   } catch (e) {
     yield put(getCommentsError(e))

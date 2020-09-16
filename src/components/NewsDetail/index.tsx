@@ -6,8 +6,9 @@ import Grid from '@material-ui/core/Grid'
 import { spacingRow } from 'components/utils/material'
 import { useSelector } from 'react-redux'
 import { RootReducer } from 'store/store'
-import { Button } from '@material-ui/core'
+import { Link as MaterialLink } from '@material-ui/core'
 import Comments from 'components/Comments'
+import { Link } from 'react-router-dom'
 import Styled from './styles'
 
 interface Props {
@@ -15,10 +16,8 @@ interface Props {
 }
 
 const NewsDetail: React.FC<Props> = ({ details }) => {
-  console.log('details', details)
   const user = useSelector((state: RootReducer) => state.user.user)
   const comments = useSelector((state: RootReducer) => state.comments.comments)
-  console.log('user', user)
 
   const createMarkup = () => ({ __html: details.description })
 
@@ -34,13 +33,13 @@ const NewsDetail: React.FC<Props> = ({ details }) => {
           && (
           <Typography variant='h6' component='p' className='news-item__title' paragraph>
             {'Author: '}
-            <Button
+            <MaterialLink
               color='secondary'
-              href={`/profile/${user.id}`}
-              variant='text'
+              to={`/profile/${user.id}`}
+              component={Link}
             >
               {`${user.firstName} ${user.lastName}`}
-            </Button>
+            </MaterialLink>
           </Typography>
           )}
           <Typography variant='body1' component='p' className='news-item__date' paragraph>

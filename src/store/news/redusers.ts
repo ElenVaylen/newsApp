@@ -31,6 +31,7 @@ const handlers = {
   [GET_NEWS_SUCCESS]: (state: NewsStore, data: NewsItemType[]) => ({
     ...state,
     loading: false,
+    error: null,
     news: [...state.news, ...data.map((item: NewsItemType) => ({
       id: item.id,
       title: item.title,
@@ -55,6 +56,7 @@ const handlers = {
   [GET_DETAIL_NEWS_SUCCESS]: (state: NewsStore, data: NewsDetailType) => ({
     ...state,
     loading: false,
+    error: null,
     newsDetail: {
       id: data.id,
       title: data.title,

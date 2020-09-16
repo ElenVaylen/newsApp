@@ -5,7 +5,8 @@ import moment from 'moment'
 import Typography from '@material-ui/core/Typography'
 import { useSelector } from 'react-redux'
 import { RootReducer } from 'store/store'
-import { Button } from '@material-ui/core'
+import { Link as MaterialLink } from '@material-ui/core'
+import { Link } from 'react-router-dom'
 import Styled from './styles'
 
 interface Props {
@@ -19,14 +20,14 @@ const CommentsItem: React.FC<Props> = ({ comment, children }) => {
     <Styled className='comments-item'>
       <div className='comments-item__content'>
         <div className='comments-item__head'>
-          <Button
+          <MaterialLink
             color='secondary'
-            href={`/profile/${user.id}`}
-            variant='text'
+            to={`/profile/${user.id}`}
+            component={Link}
             className='comments-item__author'
           >
             {`${user.firstName} ${user.lastName}`}
-          </Button>
+          </MaterialLink>
           <Typography variant='body1' component='p' className='comments-item__date'>
             {moment(comment.datetime).format('DD.MM.YYYY HH:mm')}
           </Typography>
